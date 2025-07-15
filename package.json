@@ -1,0 +1,37 @@
+{
+  "name": "home-flex-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-strip-types ./src/index.ts",
+    "drizzle:generate2": "drizzle-kit generate --schema=./src/shared/entities/index.ts --out=./drizzle/migrations --dialect=postgresql --name",
+    "drizzle:generate": "drizzle-kit generate --config=./drizzle.config.ts --name",
+    "drizzle:pull": "drizzle-kit pull --config=./drizzle.config.ts",
+    "drizzle:push": "drizzle-kit push --config=./drizzle.config.ts",
+    "drizzle:migrate": "drizzle-kit migrate --config=./drizzle.config.ts",
+    "drizzle:studio": "drizzle-kit studio --port=3000 --config=./drizzle.config.ts"
+  },
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "express",
+    "api"
+  ],
+  "author": "fabiohenriquesf8@gmail.com",
+  "license": "ISC",
+  "packageManager": "pnpm@10.13.1+sha512.37ebf1a5c7a30d5fabe0c5df44ee8da4c965ca0c5af3dbab28c3a1681b70a256218d05c81c9c0dcf767ef6b8551eb5b960042b9ed4300c59242336377e01cfad",
+  "dependencies": {
+    "dotenv": "^17.2.0",
+    "drizzle-orm": "^0.44.3",
+    "express": "^5.1.0",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/pg": "^8.15.4",
+    "drizzle-kit": "^0.28.0"
+  }
+}
