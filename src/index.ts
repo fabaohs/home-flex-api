@@ -1,5 +1,6 @@
 ﻿import express from "express";
-import setupRoutes from "./routes/index";
+import setupRoutes from "./routes/index.ts";
+import { errorHandler } from "./middlewares/error-handler.ts";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -16,8 +17,7 @@ app.use("/health", (_, res) =>
   })
 );
 
-// TODO: add an error handler here
-app.use();
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
