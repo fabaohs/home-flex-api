@@ -1,5 +1,7 @@
 ﻿export class AuthService {
-  static login(user) {
+  static async login(user) {
     return user;
   }
+
+  static async me() {}
 }
