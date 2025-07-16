@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --experimental-strip-types ./src/index.ts",
+    "start": "node --experimental-transform-types --experimental-strip-types ./src/index.ts",
     "drizzle:generate2": "drizzle-kit generate --schema=./src/shared/entities/index.ts --out=./drizzle/migrations --dialect=postgresql --name",
     "drizzle:generate": "drizzle-kit generate --config=./drizzle.config.ts --name",
     "drizzle:pull": "drizzle-kit pull --config=./drizzle.config.ts",
