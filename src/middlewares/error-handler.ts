@@ -1,4 +1,4 @@
-﻿import { NextFunction, Request, Response } from "express";
+﻿import { type NextFunction, type Request, type Response } from "express";
 import { BaseError, InternalServerError } from "../configs/error.ts";
 import { ErrorEnum } from "../shared/enums/error-responses.enum.ts";
 
