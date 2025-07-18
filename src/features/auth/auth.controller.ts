@@ -1,5 +1,9 @@
 ﻿import { type NextFunction, type Request, type Response } from "express";
 import { AuthService } from "./auth.service.ts";
+import { Ok } from "../../configs/success.ts";
+import { SuccessResponses } from "../../shared/enums/success-responses.enum.ts";
+import { BadRequest } from "../../configs/error.ts";
+import { ErrorEnum } from "../../shared/enums/error-responses.enum.ts";
 
 export class AuthController {
   async login(req: Request, res: Response, next: NextFunction) {
@@ -7,7 +11,10 @@ export class AuthController {
       const { email, password } = req.body;
 
       if (!email || !password) {
-        return;
+        throw new BadRequest(
+          ErrorEnum.BAD_INPUT,
+          "Email e Senha são obrigatórios!"
+        );
       }
 
       const cleanedPayload = {
@@ -15,9 +22,13 @@ export class AuthController {
         password: password.trim(),
       };
 
-      await AuthService.login(cleanedPayload);
+      const loggedUser = await AuthService.login(cleanedPayload);
 
-      return res.status(200).json({});
+      return new Ok(
+        SuccessResponses.OK,
+        loggedUser,
+        "Usuário logado com sucesso!"
+      );
     } catch (e) {
       next(e);
     }

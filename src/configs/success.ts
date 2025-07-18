@@ -17,6 +17,16 @@ export class BaseSuccess {
     this.message = message;
     this.body = body;
   }
+
+  protected getBody() {
+    return {
+      statusCode: this.statusCode,
+      successCode: this.successCode,
+      message: this.message ?? null,
+      body: this.body ?? null,
+      timestamp: new Date(),
+    };
+  }
 }
 
 export class Ok extends BaseSuccess {
