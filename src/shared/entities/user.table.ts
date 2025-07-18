@@ -5,7 +5,6 @@ const user = pgTable("users", {
   name: varchar("name", { length: 255 }).notNull(),
   email: varchar("email", { length: 100 }).notNull().unique(),
   password: varchar("password", { length: 100 }).notNull(),
-  enterpriseId: integer("enterprise_id").notNull(),
 });
 
 export { user };
