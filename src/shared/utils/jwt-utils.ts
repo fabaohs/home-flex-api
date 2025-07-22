@@ -1,4 +1,4 @@
-﻿import { sign, verify } from "jsonwebtoken";
+﻿import jwt from "jsonwebtoken";
 import { randomUUID } from "crypto";
 
 interface IClaims {
@@ -8,7 +8,7 @@ interface IClaims {
 }
 
 export const generateAccessToken = (claims: IClaims) => {
-  const token = sign({ claims }, String(process.env.JWT_SECRET), {
+  const token = jwt.sign({ claims }, String(process.env.JWT_SECRET), {
     expiresIn: "1h",
     subject: String(claims.userId),
   });
@@ -19,7 +19,7 @@ export const generateAccessToken = (claims: IClaims) => {
 export const generateRefreshToken = (userId: number) => {
   const jti = randomUUID();
 
-  const refreshToken = sign(
+  const refreshToken = jwt.sign(
     { jti, userId },
     String(process.env.JWT_REFRESH_SECRET),
     {
@@ -35,7 +35,7 @@ export const decodeToken = async (
   type: "access" | "refresh",
   token: string
 ) => {
-  return verify(
+  return jwt.verify(
     token,
     type === "access"
       ? String(process.env.JWT_SECRET)
