@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --experimental-transform-types --experimental-strip-types ./src/index.ts",
+    "dev": "ts-node-dev --respawn --require tsconfig-paths/register ./src/index.ts",
     "drizzle:generate": "drizzle-kit generate --config=./drizzle.config.ts --name",
     "drizzle:pull": "drizzle-kit pull --config=./drizzle.config.ts",
     "drizzle:push": "drizzle-kit push --config=./drizzle.config.ts",
@@ -35,6 +34,9 @@
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/pg": "^8.15.4",
-    "drizzle-kit": "^0.28.0"
+    "drizzle-kit": "^0.28.0",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.3"
   }
 }

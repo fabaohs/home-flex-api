@@ -23,6 +23,11 @@ export function errorHandler(
     timestamp: new Date(),
     message: message,
     errorCode: errorCode,
-    ...{ ...(process.env.NODE_ENV !== "production" ? { stack: stack } : null) },
+    statusCode: statusCode,
+    ...{
+      ...(process.env.NODE_ENV !== "production" && statusCode === 500
+        ? { stack: stack }
+        : null),
+    },
   });
 }

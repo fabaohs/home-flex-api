@@ -1,15 +1,39 @@
 ﻿{
   "compilerOptions": {
-    "target": "esnext",
-    "module": "nodenext",
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "@routes/*": ["./routes/*"],
+      "@configs/*": ["./configs/*"],
+      "@utils/*": ["./utils/*"],
+      "@shared/*": ["./shared/*"],
+      "@entities/*": ["./shared/entities/*"]
+    },
+    "strict": false,
+    "esModuleInterop": true,
     "allowImportingTsExtensions": true,
-    "rewriteRelativeImportExtensions": true,
-    "verbatimModuleSyntax": false,
-    "erasableSyntaxOnly": false,
     "noEmit": true,
-    "strict": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
     "types": ["node"]
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
 }

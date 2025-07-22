@@ -2,7 +2,7 @@
 import { ErrorEnum } from "../../shared/enums/error-responses.enum.ts";
 import { AuthRepository } from "./auth.repository.ts";
 import { compare } from "bcrypt";
-import jwtUtils from "../../shared/utils/jwt-utils.ts";
+import jwtUtils from "@utils/jwt-utils";
 
 export class AuthService {
   static async login({ email, password }: { email: string; password: string }) {
