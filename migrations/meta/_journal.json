@@ -8,6 +8,34 @@
       "when": 1761704362491,
       "tag": "0000_init",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1761705069869,
+      "tag": "0001_add_user_profile_column",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1761705404397,
+      "tag": "0002_removed_user_profile_column",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1761705703288,
+      "tag": "0003_add_enterprise_table",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1761705754609,
+      "tag": "0004_add_enterprises_users_table",
+      "breakpoints": true
     }
   ]
 }
