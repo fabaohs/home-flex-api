@@ -9,6 +9,9 @@ import { RegisterDto } from 'src/modules/auth/dto/authenticate.dto';
 export interface IUserRepository {
   getById(id: number): Promise<User | null>;
   getByEmail(email: string): Promise<User | null>;
+  getUserEnterprise(
+    userId: number,
+  ): Promise<{ enterpriseId: number; profileId: ProfileEnum } | null>;
   create(registerDto: RegisterDto): Promise<User>;
 }
 
@@ -69,6 +72,23 @@ export class UserRepository implements IUserRepository {
       return response;
     } catch (error) {
       Logger.log('Error creating user:', error);
+      throw new Error('Database error');
+    }
+  }
+
+  async getUserEnterprise(
+    userId: number,
+  ): Promise<{ enterpriseId: number; profileId: ProfileEnum } | null> {
+    try {
+      const result = await this.db
+        .select()
+        .from(schema.usersEnterprises)
+        .where(eq(schema.usersEnterprises.userId, userId))
+        .then((res) => res[0]);
+
+      return result || null;
+    } catch (error) {
+      Logger.log('Error fetching user enterprise:', error);
       throw new Error('Database error');
     }
   }

@@ -4,11 +4,12 @@ import {
 } from './../../shared/repositories/user.repository';
 import { Inject, Injectable } from '@nestjs/common';
 import { AuthenticateDto, RegisterDto } from './dto/authenticate.dto';
-import { genSalt, hash } from 'bcrypt';
+import { genSalt, hash, compare } from 'bcrypt';
 import {
   Conflict,
   Forbidden,
   Unauthorized,
+  UnprocessableEntity,
 } from 'src/configurations/errors/errors';
 import { ErrorsEnum } from 'src/configurations/errors/errors.enum';
 import { JwtUtils } from 'src/shared/utils/jwt.utils';
@@ -32,13 +33,39 @@ export class AuthService {
       throw new Forbidden(ErrorsEnum.USER_NOT_FOUND);
     }
 
-    const hashedPwd = await this.hashPassword(password);
+    const isPasswordValid = await compare(password, user.password);
 
-    if (user.password !== hashedPwd) {
+    if (!isPasswordValid) {
       throw new Unauthorized(ErrorsEnum.INVALID_CREDENTIALS);
     }
 
-    return user;
+    const userEnterprise = await this.userRepository.getUserEnterprise(user.id);
+
+    if (!userEnterprise) {
+      throw new UnprocessableEntity(ErrorsEnum.USER_ENTERPRISE_NOT_FOUND);
+    }
+
+    // todo: criar joins nos repositories
+    const token = JwtUtils.createToken({
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      enterpriseId: userEnterprise?.enterpriseId,
+      profile: userEnterprise?.profileId,
+    });
+
+    const refreshToken = JwtUtils.createToken(
+      {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        enterpriseId: userEnterprise?.enterpriseId,
+        profile: userEnterprise?.profileId,
+      },
+      '7d',
+    );
+
+    return { token, refreshToken, ...user };
   }
 
   async register(registerDto: RegisterDto) {
