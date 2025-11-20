@@ -1,5 +1,6 @@
 ﻿import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { type ProfileEnum, users } from 'src/shared/tables';
 
 export class AuthenticateDto {
   @ApiProperty({
@@ -18,4 +19,27 @@ export class AuthenticateDto {
   @IsNotEmpty()
   @MinLength(6)
   password: string;
+}
+
+export class RegisterDto extends AuthenticateDto {
+  @ApiProperty({
+    example: 'John Doe',
+    description: 'Nome completo do usuário',
+  })
+  @IsNotEmpty()
+  name: string;
+
+  @ApiProperty({
+    example: 1,
+    description: 'ID da empresa do usuário',
+  })
+  @IsNotEmpty()
+  enterpriseId: number;
+
+  @ApiProperty({
+    example: 'USER',
+    description: 'Perfil do usuário',
+  })
+  @IsNotEmpty()
+  profileEnum: ProfileEnum;
 }
